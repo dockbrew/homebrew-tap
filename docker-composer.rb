@@ -1,9 +1,9 @@
 class DockerComposer < Formula
   desc "install docker"
   homepage ""
-  url "https://github.com/dockbrew/docker-composer/archive/0.1.0.tar.gz"
-  version "0.1.0"
-  sha256 "f3ba5e73a4f44239558517fa341b81837b9cf9bce97a0d43c505a3178e7289a8"
+  url "https://github.com/dockbrew/docker-composer/archive/0.1.1.tar.gz"
+  version "0.1.1"
+  sha256 "105797a9977ad0e426bb52c1bf045f63f55d3c924e6bff2214e0b856b973fa6a"
 
   def install
     bin.install "docker-composer"
