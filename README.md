@@ -1,5 +1,5 @@
 # homebrew-docker
-containerized equivalent of your usual tools/app :)
+containerized equivalent of your usual tools/app with [homebrew](http://brew.sh) workflow  :)
 
 
 ## Get dockbrew
