@@ -1,5 +1,5 @@
 class DockerComposer < Formula
-  desc "install docker"
+  desc "install composer as a docker container"
   homepage ""
   url "https://github.com/dockbrew/docker-composer/archive/0.1.1.tar.gz"
   version "0.1.1"

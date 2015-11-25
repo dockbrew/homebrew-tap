@@ -1,5 +1,5 @@
 class DockerHugo < Formula
-  desc "install docker"
+  desc "install hugo as a docker container"
   homepage ""
   url "https://github.com/dockbrew/docker-hugo/archive/0.13.tar.gz"
   version "0.13"
