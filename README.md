@@ -14,12 +14,15 @@ containerized equivalent of your usual tools/app with [homebrew](http://brew.sh)
 	dockbrew/tap/docker-ansible     dockbrew/tap/docker-hugo
 
 ### Install dockbrew powered app/tools/package
+
+Here is an example: Get ApacheBench (ab)
 	$ brew install dockbrew/tap/ab
 	==> Installing ab from dockbrew/homebrew-tap
 	==> Downloading https://github.com/dockbrew/ab/archive/2.3.tar.gz
 	Already downloaded: /Library/Caches/Homebrew/ab-2.3.tar.gz
 	🍺  /usr/local/Cellar/ab/2.3: 2 files, 8.0K, built in 2 seconds
 
+And run it as you usually do
 	$ ab -n10 -c10 http://www.google.fr/
 	This is ApacheBench, Version 2.3 <$Revision: 1663405 $>
 	Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
