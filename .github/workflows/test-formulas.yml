@@ -27,11 +27,11 @@ jobs:
         id: get_formulas
         run: |
           formula_string=""
-          find ./Formula -maxdepth 1 -type f -name '*.rb' -print0 | while IFS= read -r -d $'\0' formula_file; do
+          while IFS= read -r -d $'\0' formula_file; do
             formula_name=$(basename "$formula_file" .rb)
             echo "Found formula: $formula_name"
             formula_string="$formula_string $formula_name"
-          done
+          done < <(find ./Formula -maxdepth 1 -type f -name '*.rb' -print0)
           echo "formulas=$formula_string" >> $GITHUB_ENV
           echo "Final formulas: $formula_string"
 
