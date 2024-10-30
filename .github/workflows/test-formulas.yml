@@ -21,8 +21,8 @@ jobs:
       - name: Get formula names
         id: get_formulas
         run: |
-          formulas=$(find Formula -maxdepth 1 -type f -name '*.rb' -print0 | xargs -0 -n1 basename | sed 's/.rb//')
-          echo "::set-output name=formulas::$formulas"
+          formulas=$(find ./Formula -maxdepth 1 -type f -name '*.rb' -print0 | xargs -0 -n1 basename | sed 's/.rb//')
+          echo "::set-output name=formulas::$formulas" >> $GITHUB_OUTPUT
 
       - name: Test each formula
         run: |
@@ -30,6 +30,4 @@ jobs:
           for formula in ${{ steps.get_formulas.outputs.formulas }}; do
             echo "Testing formula: $formula"
             brew install dockbrew/tap/$formula || echo "Error installing $formula"
-            # Add usage command based on README if available.  This requires more sophisticated parsing of the README.
-            # For now, just check if the formula installed successfully.
           done
