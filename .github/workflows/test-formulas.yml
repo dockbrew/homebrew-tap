@@ -13,19 +13,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           node-version: 20
-
       - name: Install Homebrew
         run: brew update
-
       - name: Install dependencies
         run: brew install coreutils
-
       - name: Get formula names
         id: get_formulas
         run: |
           formulas=$(find ./Formula -maxdepth 1 -type f -name '*.rb' -print0 | xargs -0 -n1 basename | sed 's/.rb//')
           echo "formulas=$formulas" >> $GITHUB_ENV
-
       - name: Test each formula
         run: |
           echo "Formulas to test: ${FORMULAS}"
@@ -33,3 +29,7 @@ jobs:
             echo "Testing formula: $formula"
             brew install dockbrew/tap/$formula || echo "Error installing $formula"
           done
+      - name: Add comment about warnings
+        run: |
+          echo "::warning title=Node.js Version Warning::The Node.js version warning related to actions/checkout@v3 might require updating the action to a version that supports Node.js 20.  See https://github.blog/changelog/2024-03-07-github-actions-all-actions-will-run-on-node20-instead-of-node16-by-default/ for more information." >> $GITHUB_OUTPUT
+          echo "::warning title=set-output Warning::Although the workflow uses environment files, the set-output warning might persist due to caching.  See https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/ for more information." >> $GITHUB_OUTPUT
