@@ -32,7 +32,7 @@ jobs:
             echo "Found formula: $formula_name"
             formula_string="$formula_string $formula_name"
           done < <(find ./Formula -maxdepth 1 -type f -name '*.rb' -print0)
-          echo "formulas=$formula_string" >> $GITHUB_ENV
+          echo "FORMULAS=$formula_string" >> $GITHUB_ENV
           echo "Final formulas: $formula_string"
 
       - name: Test each formula
