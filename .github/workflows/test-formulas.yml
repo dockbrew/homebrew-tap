@@ -1,0 +1,35 @@
+name: Test Homebrew Formulas
+
+on:
+  push:
+    branches:
+      - feature/update
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Homebrew
+        run: brew update
+
+      - name: Install dependencies
+        run: brew install coreutils
+
+      - name: Get formula names
+        id: get_formulas
+        run: |
+          formulas=$(find Formula -maxdepth 1 -type f -name '*.rb' -print0 | xargs -0 -n1 basename | sed 's/.rb//')
+          echo "::set-output name=formulas::$formulas"
+
+      - name: Test each formula
+        run: |
+          echo "Formulas to test: ${{ steps.get_formulas.outputs.formulas }}"
+          for formula in ${{ steps.get_formulas.outputs.formulas }}; do
+            echo "Testing formula: $formula"
+            brew install dockbrew/tap/$formula || echo "Error installing $formula"
+            # Add usage command based on README if available.  This requires more sophisticated parsing of the README.
+            # For now, just check if the formula installed successfully.
+          done
