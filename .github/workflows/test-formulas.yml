@@ -14,12 +14,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Debug - Print working directory
-        run: pwd
-
-      - name: Debug - List files
-        run: ls -l
-
       - name: Install Homebrew
         run: brew update
 
@@ -29,7 +23,11 @@ jobs:
       - name: Get formula names
         id: get_formulas
         run: |
-          formulas=$(find ./Formula -maxdepth 1 -type f -name '*.rb' -print0 | xargs -0 -n1 basename | sed 's/.rb//')
+          formulas=""
+          find ./Formula -maxdepth 1 -type f -name '*.rb' -print0 | while IFS= read -r -d $'\0' formula_file; do
+            formula_name=$(basename "$formula_file" .rb)
+            formulas="$formulas $formula_name"
+          done
           echo "formulas=$formulas" >> $GITHUB_ENV
 
       - name: Test each formula
