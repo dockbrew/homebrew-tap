@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          node-version: 20
 
       - name: Install Homebrew
         run: brew update
@@ -22,12 +24,12 @@ jobs:
         id: get_formulas
         run: |
           formulas=$(find ./Formula -maxdepth 1 -type f -name '*.rb' -print0 | xargs -0 -n1 basename | sed 's/.rb//')
-          echo "::set-output name=formulas::$formulas" >> $GITHUB_OUTPUT
+          echo "formulas=$formulas" >> $GITHUB_ENV
 
       - name: Test each formula
         run: |
-          echo "Formulas to test: ${{ steps.get_formulas.outputs.formulas }}"
-          for formula in ${{ steps.get_formulas.outputs.formulas }}; do
+          echo "Formulas to test: ${FORMULAS}"
+          for formula in ${FORMULAS}; do
             echo "Testing formula: $formula"
             brew install dockbrew/tap/$formula || echo "Error installing $formula"
           done
