@@ -12,6 +12,7 @@ class Ab < Formula
   end
 
   test do
-    system "#{bin}/ab", "Apache", shell_output("#{bin}/ab help")
+    system "#{bin}/ab", "-V"
+    assert_match "version", shell_output("#{bin}/ab help")
   end
 end
