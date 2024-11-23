@@ -9,10 +9,9 @@ class Ab < Formula
 
   def install
     bin.install "ab"
-    system "brew", "test"
   end
 
   test do
-    system "#{bin}/ab", "-V"
+    system "#{bin}/ab", "Apache", shell_output("#{bin}/ab help")
   end
 end
