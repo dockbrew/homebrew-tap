@@ -38,5 +38,5 @@ jobs:
           echo "Formulas to test: ${FORMULAS}"
           for formula in ${FORMULAS}; do
             echo "Testing formula: $formula"
-            brew install dockbrew/tap/$formula || echo "Error installing $formula"
+            brew install dockbrew/tap/$formula && brew test dockbrew/tap/$formula || echo "Error installing $formula"
           done
