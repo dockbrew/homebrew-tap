@@ -18,4 +18,8 @@ class Ab < Formula
   def install
     bin.install "ab"
   end
+
+  test do
+    system "#{bin}/ab", "-V"
+  end
 end
