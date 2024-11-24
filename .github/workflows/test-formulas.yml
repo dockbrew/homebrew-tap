@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       #- name: Check and install Homebrew
       #  run: |
@@ -23,7 +23,7 @@ jobs:
         run: echo $PATH && brew update
 
       - name: Install dependencies
-        run: brew install coreutils
+        run: brew install coreutils docker
 
       - name: List Formula directory contents
         run: ls -l ./Formula
