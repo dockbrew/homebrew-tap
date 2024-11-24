@@ -12,6 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      #- name: Check and install Homebrew
+      #  run: |
+      #    if ! command -v brew &>/dev/null; then
+      #      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      #      echo "/home/linuxbrew/.linuxbrew/bin/" >> $PATH
+      #    fi
+
       - name: Install Homebrew
         run: brew update
 
