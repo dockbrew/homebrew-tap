@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install coreutils docker colima
-          colima start -f
+          brew services start colima
 
       - name: List Formula directory contents
         run: ls -l ./Formula
@@ -49,6 +49,6 @@ jobs:
             echo "Testing formula: $formula"
             brew install dockbrew/tap/$formula || echo "Error installing $formula"
             ls `brew --repository`/Library/Taps/*/*
-            ab -V 
+            brew audit --strict --new --online dockbrew/tap/$formula
             brew test dockbrew/tap/$formula
           done
