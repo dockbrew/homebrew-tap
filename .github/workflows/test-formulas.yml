@@ -1,0 +1,53 @@
+name: Test Homebrew Formulas
+
+on:
+  push:
+    branches:
+      - feature/update
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      #- name: Check and install Homebrew
+      #  run: |
+      #    if ! command -v brew &>/dev/null; then
+      #      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      #      echo "/home/linuxbrew/.linuxbrew/bin/" >> $PATH
+      #    fi
+
+      - name: Install Homebrew
+        run: echo $PATH && brew update
+
+      - name: Install dependencies
+        run: |
+          brew install coreutils docker colima
+          brew services start colima
+
+      - name: List Formula directory contents
+        run: ls -l ./Formula
+
+      - name: Get formula names
+        id: get_formulas
+        run: |
+          formula_string=""
+          while IFS= read -r -d $'\0' formula_file; do
+            formula_name=$(basename "$formula_file" .rb)
+            echo "Found formula: $formula_name"
+            formula_string="$formula_string $formula_name"
+          done < <(find ./Formula -maxdepth 1 -type f -name '*.rb' -print0)
+          echo "FORMULAS=$formula_string" >> $GITHUB_ENV
+          echo "Final formulas: $formula_string"
+
+      - name: Test each formula
+        run: |
+          echo "Formulas to test: ${FORMULAS}"
+          for formula in ${FORMULAS}; do
+            echo "Testing formula: $formula"
+            brew install dockbrew/tap/$formula || echo "Error installing $formula"
+            brew audit --strict --new --online dockbrew/tap/$formula
+            brew test dockbrew/tap/$formula
+          done
