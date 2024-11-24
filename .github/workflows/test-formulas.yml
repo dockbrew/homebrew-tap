@@ -23,7 +23,9 @@ jobs:
         run: echo $PATH && brew update
 
       - name: Install dependencies
-        run: brew install coreutils docker
+        run: |
+          brew install coreutils docker
+          colima start
 
       - name: List Formula directory contents
         run: ls -l ./Formula
