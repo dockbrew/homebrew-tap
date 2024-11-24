@@ -20,7 +20,7 @@ jobs:
       #    fi
 
       - name: Install Homebrew
-        run: brew update
+        run: echo $PATH && brew update
 
       - name: Install dependencies
         run: brew install coreutils
