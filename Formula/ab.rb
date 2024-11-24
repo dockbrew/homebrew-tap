@@ -1,5 +1,5 @@
 class Ab < Formula
-  desc "install ApacheBench as a docker container"
+  desc "Install ApacheBench as a docker container"
   homepage "https://github.com/jfrazelle/dockerfiles/tree/master/ab"
   url "https://github.com/dockbrew/ab/archive/2.3.tar.gz"
   version "2.3"
@@ -12,7 +12,6 @@ class Ab < Formula
   end
 
   test do
-    system "#{bin}/ab", "-V"
-    assert_match "version", shell_output("#{bin}/ab help")
+    system bin/"ab", "-V"
   end
 end

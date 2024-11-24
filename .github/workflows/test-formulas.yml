@@ -48,7 +48,6 @@ jobs:
           for formula in ${FORMULAS}; do
             echo "Testing formula: $formula"
             brew install dockbrew/tap/$formula || echo "Error installing $formula"
-            ls `brew --repository`/Library/Taps/*/*
             brew audit --strict --new --online dockbrew/tap/$formula
             brew test dockbrew/tap/$formula
           done
