@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install coreutils docker colima
-          colima start
+          colima start -f
 
       - name: List Formula directory contents
         run: ls -l ./Formula
